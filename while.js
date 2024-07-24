@@ -1,28 +1,62 @@
-import entradaDeDados from 'readline-sync';
+import input from 'readline-sync'
 
-// Exercício While 01
-let numeroEntradaTabuada =  entradaDeDados.questionInt("Insira um numero para a tabuada: ");
-
-let contTabuada = 1;
-while (contTabuada <= 10) {
-    console.log(`${numeroEntradaTabuada} X ${contTabuada} = ${numeroEntradaTabuada * contTabuada}`);
-    contTabuada ++;
+function menu() { 
+    console.log('')
+    console.log('[1] multiplicacao.');
+    console.log('[2] Soma.'); 
+    console.log('[3] Divisao. '); 
+    console.log('')
 }
 
-//exercício While 02
-let nAlunos = entradaDeDados.questionInt("Quantos alunos tem a turma: ");
-let cont = 1;
-let mediaturma = 0
-while (nAlunos >= cont) {
-    console.log(`Agora digite a nota do ${cont}º aluno:`);
-    let nb1 = entradaDeDados.questionInt("Digite a nota do primeiro bimestre: ");
-    let nb2 = entradaDeDados.questionInt("Digite a nota do segundo bimestre: ");
-    let nb3 = entradaDeDados.questionInt("Digite a nota do terceiro bimestre: ");
-    let nb4 = entradaDeDados.questionInt("Digite a nota do quarto bimestre: ");
-    let media = (nb1+nb2+nb3+nb4)/4
-    console.log(`A media do ${cont}º aluno é de ${media.toFixed(2)}`);
-    cont++;
-    mediaturma += media 
-    
+function multiplicacao(n1, n2) {
+    n1 = input.questionFloat('Digite o primeiro valor: ');
+    n2 = input.questionFloat('Digite o segundo valor: ');
+    console.log(`a multiplicacao de ${n1} x ${n2} = ${(n1 * n2).toFixed(2)}`)
 }
-console.log(`A média da turma é de ${(mediaturma/nAlunos).toFixed(2)}`)
+
+function soma(n1, n2) {
+    n1 = input.questionFloat('Digite o primeiro valor: ');
+    n2 = input.questionFloat('Digite o segundo valor: ');
+    console.log(`a soma de ${n1} + ${n2} = ${(n1 + n2).toFixed(2)}`)
+}
+
+function divisao(n1, n2) { 
+    n1 = input.questionFloat('Digite o primeiro valor: ');
+    n2 = input.questionFloat('Digite o segundo valor: ');
+    console.log(`a divisao de ${n1} / ${n2} = ${(n1 / n2).toFixed(2)}`)
+}
+
+function continuar() { 
+    let cont = true; 
+
+    while (cont) { 
+        menu();
+        let opcao = input.questionInt('Digite uma das opcoes de sua escolha: ');
+
+        switch (opcao) {
+            case 1:
+                console.log(multiplicacao())
+                break;
+            case 2:
+                console.log(soma());
+                break;
+            case 3: 
+                console.log(divisao());
+                break;
+            default:
+                console.log('Opcão inexistente!')
+                break;
+        }
+
+        let soun = input.question('Deseja continuar? [S/N]: ').toUpperCase()
+        if (soun == 'S') { 
+            console.log(opcao)
+        } else if (soun == 'N') { 
+            cont = false;
+            console.log('Até mais :)')
+            break;
+        }
+    }
+}
+
+continuar();

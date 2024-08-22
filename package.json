@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "type": "module",
+    "readline-sync": "^1.4.10"
+  }
+}

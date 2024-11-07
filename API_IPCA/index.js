@@ -1,12 +1,12 @@
 import express from "express";
-import {buscarIPCA} from "./servicos/servico";
+import { historicoInflacao } from "./servicos/servico.js";
 
 const app = express();
 let data = new Date();
 
-app.get('/ufs', (req, res) => {
+app.get('/historicoIPCA', (req, res) => {
     const ipca = req.query.historico;
-    const resultado = buscarIPCA; 
+    const resultado = buscarIPCA(historicoInflacao); 
     
     if (ipca == anoIPCA) { 
         res.json(resultado);

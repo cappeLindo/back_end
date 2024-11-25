@@ -116,5 +116,3 @@ const historicoInflacao = [
   ];
   
   export default historicoInflacao;
-
-

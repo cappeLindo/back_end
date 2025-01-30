@@ -28,7 +28,7 @@ app.get('/campeonatos/:id', async (req, res) => {
     if(campeonato.length > 0) { 
         res.json(campeonato);
     } else { 
-        res.status(404).json({ mensagem: "nenhum campeonato encontrado"});
+        res.status(404).json({ mensagem: "nenhum campeonato encontrado :("});
     }
 })
 

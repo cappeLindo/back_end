@@ -28,12 +28,9 @@ app.get('/campeonatos', async (req, res) => {
 app.get('/campeonatos/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const campeonato = await retornacampeonatosID(id);
-    if(campeonato.length > 0) { 
+    if (campeonato.length > 0) { 
         res.json(campeonato);
-    } else if (campeonato.length > 20) { 
-        res.status(404).json({ mensagem: "nenhum ID de time encontrado :("})
-    }
-    else { 
+    } else { 
         res.status(404).json({ mensagem: "nenhum campeonato encontrado :("});
     }
 })

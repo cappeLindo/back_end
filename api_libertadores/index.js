@@ -30,7 +30,10 @@ app.get('/campeonatos/:id', async (req, res) => {
     const campeonato = await retornacampeonatosID(id);
     if(campeonato.length > 0) { 
         res.json(campeonato);
-    } else { 
+    } else if (campeonato.length > 20) { 
+        res.status(404).json({ mensagem: "nenhum ID de time encontrado :("})
+    }
+    else { 
         res.status(404).json({ mensagem: "nenhum campeonato encontrado :("});
     }
 })

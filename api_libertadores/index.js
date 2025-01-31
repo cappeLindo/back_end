@@ -1,6 +1,6 @@
 import express from 'express';
 import pool from './servicos/conexao.js';
-import { retornacampeonatos, retornacampeonatosID, retornacampeonatosAno } from './servicos/retornaCampeonatos_servico.js';
+import { retornacampeonatos, retornacampeonatosID, retornacampeonatosAno, retornacampeonatosCampeao } from './servicos/retornaCampeonatos_servico.js';
 
 const app = express(); 
 
@@ -8,11 +8,14 @@ app.get('/campeonatos', async (req, res) => {
     let campeonatos;
 
     const ano = req.query.ano; 
+    const time = req.query.time;
 
-    if(typeof ano === 'unfined') { 
+    if (typeof ano === 'undefined' && typeof time === 'undefined') { 
         campeonatos = await retornacampeonatos();
-    } else { 
-        campeonatos = await retornacampeonatosAno(parseInt(ano))
+    } else if (typeof ano !== 'undefined') { 
+        campeonatos = await retornacampeonatosAno(ano);
+    } else if (typeof time !== 'undefined') {
+        campeonatos = await retornacampeonatosCampeao(time);
     }
 
     if (campeonatos.length > 0 ) { 
@@ -33,9 +36,11 @@ app.get('/campeonatos/:id', async (req, res) => {
 })
 
 
+
+
 app.listen(9000, async () => {
     const data = new Date(); 
-    console.log('Servidor NODE iniciado em: '+ data);
+    console.log('Servidor NODE iniciado em http://localhost:9000 e no horário de: '+ data);
 
     const conexao = await pool.getConnection();
 

@@ -1,6 +1,6 @@
 import pool from './conexao.js';
 
-export async function retornacampeonatos() { 
+async function retornacampeonatos() { 
     const conexao = await pool.getConnection();
     const capeonatos_tb = await conexao.query('SELECT id, campeao, vice, ano FROM campeonatos'); 
     const campeonatos = capeonatos_tb[0];
@@ -8,7 +8,7 @@ export async function retornacampeonatos() {
     return campeonatos
 }
 
-export async function retornacampeonatosID(id) { 
+async function retornacampeonatosID(id) { 
     const conexao = await pool.getConnection();
     const capeonatos_tb = await conexao.query(
         'SELECT id, campeao, vice, ano FROM campeonatos WHERE id = ' + id
@@ -19,14 +19,27 @@ export async function retornacampeonatosID(id) {
 }
 
 
-export async function retornacampeonatosAno(ano) { 
+async function retornacampeonatosAno(ano) { 
     const conexao = await pool.getConnection();
     const capeonatos_tb = await conexao.query(
         'SELECT id, campeao, vice, ano FROM campeonatos WHERE ano = ' + ano
-    );
-    const campeonatos = capeonatos_tb[0];
-    conexao.release();
-    return campeonatos;
-}
+        );
+        const campeonatos = capeonatos_tb[0];
+        conexao.release();
+        return campeonatos;
+    }
+    
+    
+    async function retornacampeonatosCampeao(time) { 
+        const conexao = await pool.getConnection();
+        
+        const capeonatos_tb = await conexao.query(
+            'SELECT id, campeao, vice, ano FROM campeonatos WHERE campeao = "' + time + '"'
+            );
+            const campeonatos = capeonatos_tb[0];
+            conexao.release();
+            return campeonatos;
+    }
 
 
+export {retornacampeonatos, retornacampeonatosID, retornacampeonatosAno, retornacampeonatosCampeao}

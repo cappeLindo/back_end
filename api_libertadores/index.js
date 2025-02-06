@@ -1,8 +1,11 @@
 import express from 'express';
 import pool from './servicos/conexao.js';
 import { retornacampeonatos, retornacampeonatosID, retornacampeonatosAno, retornacampeonatosCampeao } from './servicos/retornaCampeonatos_servico.js';
+import cors from "cors";
+
 
 const app = express(); 
+app.use(cors())
 
 app.get('/campeonatos', async (req, res) => { 
     let campeonatos;

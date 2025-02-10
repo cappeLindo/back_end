@@ -1,22 +1,42 @@
-import pool from './conexao.js';
+import pool from "./conexao.js";
 
-async function exportarQuery(conexao, query) { 
-    const conexao_clinica = await conexao.query(query);
-    let resposta = conexao_clinica[0];
-    return resposta
+async function exportQuery(conexao, query, params = []) {
+    let [resposta] = await conexao.query(query, params);
+    return resposta;
 }
 
-async function retornarMedicos() { 
+async function MostrarTodosMedicos() {
     const conexao = await pool.getConnection();
-    const query = `SELECT m.id, m.nome, m.telefone, m.email, e.especialidade FROM medicos m JOIN especialidades e ON m.especialidade = e.id ORDER BY m.nome ASC`;
-    let resposta_medicos = await pool.query(query);
-    let todos_medicos = resposta_medicos[0]
+    const query = `SELECT m.id, m.nome, m.telefone, m.email, e.especialidade 
+                   FROM medicos m 
+                   JOIN especialidades e ON m.especialidade = e.id 
+                   ORDER BY m.nome ASC`;
+    let resposta = await exportQuery(conexao, query); 
     conexao.release();
-    return todos_medicos
+    return resposta;
 }
 
+async function MostrarMedicoEspecifico(nome_medico) {
+    const listaNomes = await MostrarTodosMedicos(); 
+    const resposta = listaNomes.filter(medico => 
+        medico.nome.toLowerCase().includes(nome_medico.toLowerCase())
+    );
+    return resposta;
+}
 
+async function MostrarMedicoEspecialidade(especialidade_medico) {
+    const conexao = await pool.getConnection();
+    const query = `SELECT m.id, m.nome, m.telefone, m.email, e.especialidade 
+                   FROM medicos m 
+                   JOIN especialidades e ON m.especialidade = e.id 
+                   WHERE e.especialidade = ?`;
+    let resposta = await exportQuery(conexao, query, [especialidade_medico]); 
+    conexao.release();
+    return resposta;
+}
 
 export {
-    retornarMedicos
-}
+    MostrarTodosMedicos,
+    MostrarMedicoEspecifico,
+    MostrarMedicoEspecialidade
+};

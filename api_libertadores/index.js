@@ -3,9 +3,24 @@ import pool from "./servicos/conexao.js";
 import { retornacampeonatos, retornacampeonatosID, retornacampeonatosAno, retornacampeonatosCampeao } from "./servicos/retornaCampeonatos_servico.js";
 import { cadastraCampeonato } from "./servicos/cadastroCampeonato_servico.js";
 import { atualizaCampeonato, atualizaCampeonatoParcial } from "./servicos/atualizaCampeonato_servico.js";
+import { deletaCameponato } from "./servicos/deleta_campeonatos_servicos.js";
 
-const app = express()
-app.use(express.json())
+
+const app = express();
+app.use(express.json());
+
+
+app.delete('/campeonatos/:id', async (req, res) => { 
+    const {id} = req.params; 
+    const resultado = await deletaCameponato(id);
+    
+    if (resultado.affectedRows > 0) {
+        res.status(203).send('Registro deletado com sucesso!');
+    } else {
+        res.status(404).send('Registro não encontrado! Passe o ID correto');
+    }
+
+})
 
 app.patch('/campeonatos/:id', async (req, res) => {
     const {id} = req.params; 

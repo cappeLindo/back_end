@@ -42,4 +42,9 @@ async function retornacampeonatosAno(ano) {
     }
 
 
-export {retornacampeonatos, retornacampeonatosID, retornacampeonatosAno, retornacampeonatosCampeao}
+export {
+    retornacampeonatos, 
+    retornacampeonatosID,
+    retornacampeonatosAno, 
+    retornacampeonatosCampeao
+}

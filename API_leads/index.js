@@ -23,23 +23,23 @@ app.post('/usuarios', async (req, res) => {
   const { nome, email, telefone } = req.body;
 
   if (!validarNome(nome)) {
-    return res.status(400).json({ error: 'O nome é obrigatório e deve ter pelo menos 2 caracteres.' });
+    return res.status(400).send({ "mensagem"  : "é obrigatório o nome ter mais de 2 caracteres" });
   }
 
   if (!validarEmail(email)) {
-    return res.status(400).json({ error: 'O email deve ter um formato válido (email@provedor.com).' });
+    return res.status(400).send({ "mensagem" : "O email deve ter um formato válido (email@provedor.com)." });
   }
 
   if (!validarTelefone(telefone)) {
-    return res.status(400).json({ error: 'O telefone deve ter o formato válido (XX) XXXXX-XXXX.' });
+    return res.status(400).send({ "mensagem" : "O telefone deve ter o formato válido (XX) XXXXX-XXXX." });
   }
 
 
   try {
     await cadastrarUsuario(nome, email, telefone);
-    res.status(204).send("Cadastro realizado com sucesso.");
+    res.status(201).send({"mensagem" : "Cadastro realizado com sucesso."});
   } catch (err) {
-    res.status(500).json({ error: 'Erro ao cadastrar usuário.' });
+    res.status(500).send({ "mensagem" : "Erro ao cadastrar usuário." });
   }
 });
 

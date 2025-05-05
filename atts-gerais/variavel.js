@@ -1,7 +1,15 @@
-var nome = "notebook"
-var preco = 2000 ;
-console.log(typeof nome, typeof preco);
+import input from 'readline-sync'; 
 
-let linguagens = ["php", "java", "c#"];
-linguagens [0]= "vai tomar no cu pretinho";
-console.log(linguagens.length)
+let num = input.questionInt('Digite um numero para ser feito seu fatorial: '); 
+
+let f = 1;
+let c = num;
+
+while (c > 1) {
+    f = f * c;
+    c--;
+}
+
+
+console.log(`O resultado de fatorial de ${num} é ${f}`); 
+

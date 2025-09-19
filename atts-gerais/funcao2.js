@@ -3,10 +3,10 @@ import entradaDeDados from 'readline-sync';
 //atividade 02
 function inparPar(seila) {
     if (seila % 2 == 0) {
-        console.log('numero par')   
+        console.log('numero par!')   
     }
     if (seila % 2 !==0) {
-        console.log('numero impar')
+        console.log('numero impar!')
     
     }
 }
